@@ -7,6 +7,8 @@ SCSC 장필식
 
 강의를 들으면서 이해가 안되는 내용이 있으면 바로 얘기해 주세요
 
+책 참고: C++ Primer - 2.2 ~ 2.4
+
 ---
 
 # 함수
@@ -158,7 +160,7 @@ refVal = 0; // ival changes to 0
 
 - ``refVal``는 ``val``에 대한 또다른 이름이 될 뿐.
 - ``refVal``는 **reference type**이고, val에 대한 reference이다.
-- 이 때 refVal를 ival에게 bind한다고 말한다.
+- 이 때 refVal를 val에게 bind한다고 말한다.
 
 ---
 
@@ -184,9 +186,10 @@ refVal2 = ival2; // refVal3 refers to ival, ival = 2
 int val = 1;
 int &refVal = val;
 refVal = 2;
-int ii = refVal;
+int val2 = refVal;
 int &refVal3 = refVal;
-int i = refVal;
+val = 3;
+int val3 = refVal3;
 ```
 
 refVal를 쓸때마다 사실은 val를 쓰는것과 같다.
@@ -195,173 +198,27 @@ refVal를 쓸때마다 사실은 val를 쓰는것과 같다.
 
 ---
 
-# 포인터
-
-C/C++을 배우는 사람들에게 공포를 안겨주는 녀석.
-
-포인터가 왜 두려운가?
-
----
-
-# 실제 변수들은 어디에 있을까? 
-
-```cpp
-#include <iostream>
-using namespace std;
-int main() {
-    int a = 1;
-    int b = 2;
-    int c = 3;
-    cout << a << b << c << endl;
-}
-```
-가장 많이 사용하는 변수들은 CPU의 레지스터에 저장된다.
-나머지는 메모리라는 곳에 저장되게 된다.
-
----
-
-# 메모리의 구조
-
-![center](mem_hierarchy.gif)
-
----
-
-# Stack and Heap
-
-메모리는 크게 두 종류로 나누어져 있다.
-- Stack는 메모리의 높은 주소부터 아래로 차고,
-- Heap는 메모리의 낮은 주소부터 위로 찬다.
-
-아직까지 우리는 거의 Stack에서만 놀 것이다.
-(Heap memory 사용은 추후에)
-
----
-
-# Stack
-
-```cpp
-int main() {
-    int a = 1;
-    int b = 2;
-    int c = 3;
-}
-```
-
----
-
-# Stack Frame
-
-```cpp
-int fun1() {
-    int c = 3;
-}
-int main() {
-    int a = 1;
-    int b = 2;
-}
-```
-
----
-
-# Stack Frame
-
-```cpp
-int sum(int a, int b) {
-    int c = a + b;
-    return c;
-}
-int main() {
-    int a = 1;
-    int b = 2;
-    int result = sum(a, b);
-    cout << result << endl;
-}
-```
-
----
-
-# Stack Frame (with recursion)
-
-```cpp
-int factorial(int n) {
-    if (n == 0) return 1;
-    else return n * factorial(n - 1);
-}
-int main() {
-    int result = factorial(4);
-    cout << result << endl;
-}
-```
-
----
-
-# Exercise
-
-```cpp
-int fibonacci(int n) {
-    if (n == 1 || n == 2) return 1;
-    else return fibonacci(n-1) + fibonacci(n-2);
-}
-int main() {
-    int result = fibonacci(5);
-    cout << result << endl;
-}
-```
-
----
-
-# "주소"와 "값"
-
-![center](pointers.png)
-
----
-
-# 포인터의 유용성
-
-포인터를 사용하면 해당 stack frame에 우리가 원하는 값이 없어도 주소로 접근을 가능하게 해 준다!
-
-예를 들어
-- 해당 값이 함수 바깥의 stack frame에 있을 경우
-- 해당 값이 heap에 있을 경우
-
----
-
-# 포인터의 사용 방법
-
-```cpp
-
-```
-
----
-
-# &, * 정리
-
-왼쪽, &: reference declaration
-```cpp
-int &a = ...
-```
-
-왼쪽, \*: pointer declaration
-```cpp
-int *a = ...
-```
-
-오른쪽, &: address operator
-```cpp
-... = &a; 
-```
-
-오른쪽, \*: dereference operator
-```cpp
-... = *a;
-```
-
----
-
 # 흠... 그런데 이걸 왜 쓰는거죠?
 
 - 다른 함수에서 기존에 있는 변수를 변경하고 싶을 때 유용하다.
-- 변수의 주소를 통해 변수의 불필요한 복사를 줄일 수 있다.
+- 변수의 불필요한 복사를 줄일 수 있다.
+
+---
+
+# 예시: 값 변경
+
+함수를 통해 값을 변경해 줘야 할 때
+
+```cpp
+int changeNum(int& n) {
+    n = 2;
+}
+int main() {
+    int x = 1;
+    changeNum(x);
+    cout << x << endl;
+}
+```
 
 ---
 
@@ -439,12 +296,9 @@ int main() {
 
 # 언제 value로 넘겨주고 언제 reference로 넘겨주지?
 
-- 만약 변수를 함수 안에서 변경해야 한다면 reference로 넘겨줘야 한다.
-그렇지 않다면...
-
 C++11이 나오기 전까지는 그랬다. 하지만 지금은 다르다. 함수가 해당 argument 변수에 대한 소유권을 가지게 된다면 (즉 나중에도 함수 바깥에서 그 변수가 쓰이게 될 일이 없다면) value 타입으로 넘겨주길 바란다.
 
-왜? 그건 몇 주 후에... (시공의 폭풍으로)
+왜? 그건 rvalue reference를 배워야 해서 몇 주 후에... (시공의 폭풍으로)
 https://stackoverflow.com/questions/270408/is-it-better-in-c-to-pass-by-value-or-pass-by-constant-reference
 
 ---
@@ -461,6 +315,218 @@ int main() {
 }
 ```
 
+---
+
+# 포인터
+
+C/C++을 배우는 사람들에게 공포를 안겨주는 녀석.
+
+포인터가 왜 두려운가?
+
+---
+
+# 실제 변수들은 어디에 있을까? 
+
+```cpp
+#include <iostream>
+using namespace std;
+int main() {
+    int a = 1;
+    int b = 2;
+    int c = 3;
+    cout << a << b << c << endl;
+}
+```
+가장 많이 사용하는 변수들은 CPU의 레지스터에 저장된다.
+나머지는 메모리라는 곳에 저장되게 된다.
+
+---
+
+# 메모리의 구조
+
+![center](mem_hierarchy.gif)
+
+---
+
+# Stack and Heap
+
+메모리는 크게 두 종류로 나누어져 있다.
+- Stack는 메모리의 높은 주소부터 아래로 차고,
+- Heap는 메모리의 낮은 주소부터 위로 찬다.
+
+아직까지 우리는 거의 Stack에서만 놀 것이다.
+(Heap memory 사용은 추후에)
+
+---
+
+# Stack
+
+```cpp
+int main() {
+    int a = 1;
+    int b = 2;
+    int c = 3;
+}
+```
+
+---
+
+# Stack Frame
+
+```cpp
+int fun1() {
+    int c = 3;
+}
+int main() {
+    int a = 1;
+    int b = 2;
+    fun1();
+}
+```
+
+---
+
+# Stack Frame
+
+```cpp
+int sum(int a, int b) {
+    int c = a + b;
+    return c;
+}
+int main() {
+    int a = 1;
+    int b = 2;
+    int result = sum(a, b);
+    cout << result << endl;
+}
+```
+
+---
+
+# Stack Frame (with recursion)
+
+```cpp
+int factorial(int n) {
+    if (n == 0) return 1;
+    else return n * factorial(n - 1);
+}
+int main() {
+    int result = factorial(4);
+    cout << result << endl;
+}
+```
+
+---
+
+# Exercise
+
+```cpp
+int fibonacci(int n) {
+    if (n == 1 || n == 2) return 1;
+    else return fibonacci(n-1) + fibonacci(n-2);
+}
+int main() {
+    int result = fibonacci(5);
+    cout << result << endl;
+}
+```
+
+---
+
+# "주소"와 "값"
+
+![center](pointers.png)
+
+---
+
+# 포인터의 사용
+
+```cpp
+int a = 1;
+int* ptr = &a; // ptr는 a의 주소를 가지게 됨
+int b = *ptr; // b는 ptr가 가르키는 값을 가지게 됨
+```
+
+여기서
+``int*``: int를 가르키는 포인터 (타입)
+``&``: 변수의 주소값을 반환 (연산자)
+``*``: 포인터가 가르키는 값을 반환 (연산자)
+
+---
+
+# 포인터의 유용성
+
+포인터를 사용하면 해당 stack frame에 우리가 원하는 값이 없어도 그 값의 주소를 통해 접근을 가능하게 해 준다!
+
+예를 들어
+- 해당 값이 함수 바깥의 stack frame에 있을 경우
+- **해당 값이 heap에 있을 경우**
+
+---
+
+# 포인터와 stack
+
+```cpp
+void changeNum(int* num) {
+    *num = 2;
+}
+
+int main() {
+    int n = 1;
+    changeNum(&n);
+}
+```
+
+같은 것을 reference로 할 수도 있다.
+함수로 인자를 넘겨줄 때는 최대한 reference를 통해 하자.
+
+---
+
+# Exercise
+
+```cpp
+int g(int* z) {
+    int w = 2;
+    return *z + w;
+}
+void f(int* x, int* y) {
+    *y = *x;
+    *x = g(x);
+}
+int main() {
+    int a = 1;
+    int b = 2;
+    int* c = &a;
+    f(c, &b);
+    cout << a << " " << b << " " << *c << endl;
+}
+```
+
+---
+
+# &, * 정리
+
+왼쪽, &: reference declaration
+```cpp
+int &a = ...
+```
+
+왼쪽, \*: pointer declaration
+```cpp
+int *a = ...
+```
+
+오른쪽, &: address operator
+```cpp
+... = &a; 
+```
+
+오른쪽, \*: dereference operator
+```cpp
+... = *a;
+```
+
+---
 ---
 
 # 예시: swap function
@@ -666,15 +732,71 @@ int main() {
 
 ---
 
-# 악마의 const
+# 포인터 / 레퍼런스와 const
 
 const를 왜 붙여야 하고, 왜 쉽지 않은가
 
 ---
 
-# const
+# const 리뷰
 
-const correctness
+const를 통해 변경 불가능한 값을 만들 수 있다.
+
+```cpp
+const int x = 1;
+x = 2; // error!
+```
+
+---
+
+# reference에도 const를 붙일 수 있다!
+
+```cpp
+int x = 1;
+const int& ref = x;
+int y = ref; // valid
+cout << ref << endl; // valid
+ref = 2; // invalid
+```
+
+---
+
+# pointer에도 const를 붙일 수 있다!
+
+다만 어디에 붙이느냐에 따라 의미가 달라짐.
+
+- top-level const: 포인터 자체가 const
+    - ex) ``int* const ptr``
+- low-level const: 포인터가 가르키는 값이 const
+    - ex) ``const int* ptr``
+
+참고로 레퍼런스는 low-level const만 존재한다. (왜 그럴까?)
+
+---
+
+# 포인터 자체가 const
+
+```cpp
+int x = 1;
+int* const ref1 = &x; // const pointer to an int 
+cout << *ref1; // valid
+int y = 2;
+ref1 = &y; // invalid
+*ref1 = 2; // valid
+```
+
+---
+
+# 포인터가 가르키는 값이 const
+
+```cpp
+const int x = 1;
+const int* ref2 = &x; // pointer to an int that is const
+cout << *ref2; // valid;
+int y = 2;
+ref2 = &y; // valid
+*ref2 = 2; // invalid
+```
 
 ---
 
@@ -692,6 +814,17 @@ const int* ptr;
 // const pointer to an int which is const
 const int* const ptr;
 ```
+
+---
+
+# 왜 const correctness는 중요한가
+
+https://www.youtube.com/watch?v=ZWRRXP-XFvY
+
+실수로 바뀌서는 안 되는 값들은 const로 명시해 놓는게 좋은 소프트웨어 디자인이다.
+
+하지만... 현실은 시궁창
+
 
 ---
 
