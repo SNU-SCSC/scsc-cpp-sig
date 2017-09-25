@@ -60,6 +60,6 @@ int main() {
     for (const auto& entry : charCountMap) {
         char c = entry.first;
         int count = entry.second;
-        cout << c << ": " << static_cast<float>(count) / totalCharCount << "%" << endl;
+        cout << c << ": " << 100.0f * static_cast<float>(count) / totalCharCount << "%" << endl;
     }
 }
