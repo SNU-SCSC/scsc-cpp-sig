@@ -253,43 +253,163 @@ if (foundNum != numbers.end()) {
 }
 ```
 
----
-
-# 간단한 알고리즘 문제
-
-$a^2 + b^2 = c^2$를 만족하는 자연수 a, b, c를 찾으시오. (단 a, b, c는 100보다 작다.)
+find 함수 사용법은 iterator를 배운 후에.
 
 ---
 
-# 자료구조와 알고리즘 
+# 이외의 컨테이너들
 
-정성스례 짠 알고리즘. (이것보다 훨씬 효율적인 방법이 있다.)
+자세한 내용은 en.cppreference.com 참조.
+```cpp
+std::stack<T>
+std::queue<T>
+std::priority_queue<T>
+std::dequeue<T>
+std::multimap<K, V>
+std::unordered_multimap<K, V>
+...
+```
+
+---
+
+# 컨테이너의 내용물 탐색하기
+
+예: ``std::vector<int>`` 에 있는 항목들의 합을 구하기
+(단, 첫번째 항목과 마지막 항목은 제외)
 
 ```cpp
-#include <vector>
-#include <algorithm>
+std::vector<int> vec = {1, 1, 2, 3, 5, 8, 13, 21, 34}
 
-int main() {
-    
+int sum = 0;
+for (int i = 1; i < vec.size() - 1; ++i) {
+    sum += vec[i];
 }
 ```
 
 ---
 
-# <algorithm> 등장
+# int index의 문제점
 
-도와줘 스피드왜건!
+만약에 다른 종류의 컨테이너가 들어온다면?
 
 ```cpp
-#include <vector>
-#include <algorithm>
-
-int main() {
-    std::vector<std::tuple<int, int, int>> numbers = 
+std::list<int> lst = {1, 1, 2, 3, 5, 8, 13, 21, 34}
+int sum = 0;
+for (int i = 1; i < lst.size() - 1; ++i) {
+    sum += lst[i]; // error: cannot perform random access on list
 }
 ```
 
 ---
+
+# 해결법: iterator
+
+컨테이너에 있는 item의 위치를 가르키는 "포인터"같은 존재.
+
+모든 STL 컨테이너에 iterator 타입이 달려있다.
+
+```cpp
+std::list<int> lst = {1, 1, 2, 3, 5, 8, 13, 21, 34}
+int sum = 0;
+for (std::list<int>::iterator it = lst.begin() + 1; it != lst.end() - 1; ++it) {
+    sum += *it;
+}
+```
+
+----
+
+# 해결법: iterator
+
+좀 더 간결하게 표현하자면...
+
+```cpp
+std::list<int> lst = {1, 1, 2, 3, 5, 8, 13, 21, 34}
+int sum = 0;
+for (auto it = lst.begin() + 1; it != lst.end() - 1; ++it) {
+    sum += *it;
+}
+```
+
+---
+
+# iterators
+
+---
+
+---
+
+# reverse iterators
+
+거꾸로 iterate하고 싶은 경우: 
+```cpp
+std::list<int> lst = {1, 1, 2, 3, 5, 8, 13, 21, 34}
+for (auto it = lst.rbegin() + 1; it != lst.rend(); ++it) {
+    cout << *it << endl;
+}
+```
+
+---
+
+# iterator의 사용 예
+
+binary search로 vector에서 특정 숫자를 찾기
+
+```cpp
+std::vector<int> vec = {...};
+
+auto beg = vec.begin(), end = vec.end();
+auto mid = vec.begin() + (end - beg)/2;
+int sought = 100;
+
+while (mid != end && *mid != sought) {
+    if (sought < *mid) {
+        end = mid;
+    }
+    else {
+        beg = mid + 1;
+    }
+    mid = beg + (end - beg)/2;
+}
+
+cout << *mid << endl;
+```
+
+---
+
+# iterator와 알고리즘
+
+\<algorithm\> 헤더에 매우 유용한 알고리즘 함수들이 있다.
+
+```cpp
+std::vector<int> 
+std::find(std::vector<
+```
+
+---
+
+# 실습
+
+단어들의 목록이 다음과 같이 저장되어 있다.
+```cpp
+std::vector<string> words;
+```
+
+1. 다음과 같이 단어들을 길이별로 정렬해서 출력하라.
+
+```cpp
+
+```
+
+---
+
+---
+
+
+
+
+
+
+
 
 
 
