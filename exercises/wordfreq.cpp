@@ -45,13 +45,14 @@ int main() {
     int wordLen = 0;
     for (const auto& sameLengthWords : wordsByLength) {
         int count = sameLengthWords.size();
-        if (count == 0) continue;
-        string wordsStr = count == 1 ? "word" : "words";
-        cout << wordLen << " (" << count << " " << wordsStr << "): ";
-        for (const auto& word : sameLengthWords) {
-            cout << word << " ";
+        if (count > 0) {
+            string wordsStr = count == 1 ? "word" : "words";
+            cout << wordLen << " (" << count << " " << wordsStr << "): ";
+            for (const auto& word : sameLengthWords) {
+                cout << word << " ";
+            }
+            cout << endl;
         }
-        cout << endl;
         wordLen++;
     }
 

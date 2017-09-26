@@ -1,4 +1,4 @@
-# C++ 시그 3주차
+C++ 시그 3주차
 SCSC 장필식
 ---
 
@@ -11,8 +11,6 @@ SCSC 장필식
 # 참고 자료
 
 C++ Primer: Chap 9 (Sequential Containers)
-
-시그 후에 읽어오는 것을 추천.
 
 ---
 
@@ -195,19 +193,22 @@ int main() {
 
 ---
 
+# Vector
+
+```cpp
+int main() {
+    
+}
+```
+
+---
+
 # List
 
 Vector하고 같은 기능을 제공하지만, 내부 구현이 다르다.
 
 ```cpp
-int main() {
-    std::list<int> lst = {1, 2, 3, 4, 5};
-    l.push_front(3);
-    l.push_back(6);
-    for (int n : lst) {
-        cout << n << endl;
-    }
-}
+
 ```
 
 ---
@@ -228,7 +229,7 @@ vector/list의 원소 개수가 n이라고 가정했을 때:
 
 # Map
 
-각 Key에 대응되는 Value들을 나열해 놓은 자료구조. 
+Key와 Value들을 나열해 놓은 자료구조.
 \<map\> 헤더파이에 들어있다.
 
 ```cpp
@@ -247,53 +248,7 @@ for (const auto& entry : scores) {
 
 ---
 
-# Map initialization
-
-```cpp
-std::map<string, int> scores = {
-    {"Dongsu", 100},
-    {"Yeongjae", 99},
-    {"SeongWoo", 99}
-};
-```
-
----
-
-# Map 정렬
-
-키값을 기준으로 정렬이 되어 있다.
-
-```cpp
-std::map<char, int> charCount = {
-    {'b', 10},
-    {'a', 15},
-    {'c', 20}
-}
-for (const auto& entry : charCount) {
-    cout << entry.first << ": " << entry.second << endl;
-}
-```
-
----
-
-# Map에 원하는 키가 들어있는지 조사
-
-```cpp
-// Increment Dongsu's score if found
-if (scores.count("Dongsu") != 0) {
-    scores["Dongsu"] += 10;
-}
-```
-
----
-
-# std::unordered_map
-
-std::map과 기능은 거의 같지만, 키값을 기준으로 정렬해주지 않는다.
-
-만약 키 값 순서대로 프린트를 해야 한다면 우리가 따로 정렬해 주어야 한다.
-
-대신 대부분의 경우 std::map보다 빠르다.
+# Unordered Map
 
 ---
 
@@ -409,7 +364,17 @@ for (auto it = lst.begin() + 1; it != lst.end() - 1; ++it) {
 
 ![](iterator.gif)
 
+
 ---
+
+# iterator range
+
+left inclusive, right exclusive
+
+[0, 10) => 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+---
+
 # iterator를 생성하는 방법
 
 - begin(): 컨테이너의 첫 번째 값에 있는 iterator
@@ -419,19 +384,12 @@ for (auto it = lst.begin() + 1; it != lst.end() - 1; ++it) {
 
 ---
 
-# iterator range
-
-left inclusive, right exclusive!
-(예: [0, 10) => 0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
-
----
-
 # iterator에 가할 수 있는 연산들
 
 - it++: iterator를 바로 다음 값으로 이동
 - it--: iterator를 바로 전 값으로 이동
-- it + n: n 만큼 다음으로 이동한 iterator를 반환
-- it2 - it1: 두 iterator의 거리를 계산 (difference_type를 반환)
+- it + n; iterator를 n 만큼 다음으로 이동
+- it1 + it2
 
 ---
 
@@ -443,32 +401,6 @@ std::list<int> lst = {1, 1, 2, 3, 5, 8, 13, 21, 34}
 for (auto it = lst.rbegin(); it != lst.rend(); ++it) {
     cout << *it << endl;
 }
-```
-
----
-
-# difference_type
-
-두 iterator과의 거리를 계산할 수 있음
-
-```cpp
-std::vector<int> vec = {1, 2, 3, 4, 5};
-std::vector<int>::iterator firstIt = vec.begin();
-std::vector<int>::iterator lastIt = vec.end();
-std::vector<int>::difference_type size = lastIt - firstIt;
-```
-
----
-
-# difference_type
-
-두 iterator과의 거리를 계산할 수 있음
-
-```cpp
-std::vector<int> vec = {1, 2, 3, 4, 5};
-auto firstIt = vec.begin();
-auto lastIt = vec.end();
-auto size = lastIt - firstIt;
 ```
 
 ---
@@ -611,11 +543,15 @@ n개의 글자마다 다음에 오게 되는 글자들을 저장하자.
 
 ---
 
-# 끄으읕
-
-즐거운 추석 보내세용
+# 힌트
 
 ---
+
+# 스켈레톤
+
+---
+
+# 
 
 
 
