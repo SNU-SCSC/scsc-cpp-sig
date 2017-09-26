@@ -213,10 +213,10 @@ vector/list의 원소 개수가 n이라고 가정했을 때:
 
 |                     |std::vector| std::list |
 |    :-:              |    :-:    |    :-:    |
-|Random access (v[i]) |  $$O(1)$$ |  $$O(n)$$ |
-|Iteration (for(..))  |  $$O(n)$$ |  $$O(n)$$ (하지만 훨씬 느림) |
-|Insert/Delete at end |  $$O(1)$$ |  $$O(1)$$ |
-|Insert/Delete at middle | $$O(n)$$ | $$O(1)$$ |
+|Random access (v[i]) |   $O(1)$  |   $O(n)$  |
+|Iteration (for(..))  |   $O(n)$  |   $O(n)$  (하지만 훨씬 느림) |
+|Insert/Delete at end |   $O(1)$  |   $O(1)$  |
+|Insert/Delete at middle |  $O(n)$  |  $O(1)$  |
 |메모리 사용 | 빈 자리가 많을 수 있음 | 꽉꽉 다 채우지만, 포인터에 의한 공간 소모 생김 |
 
 ---
@@ -232,8 +232,8 @@ map/unordered_map의 원소 개수가 n이라고 가정했을 때:
 |                     |   std::unordered_map   |   std::map   |
 |:-:                  |:-:           |:-:                     |
 |Ordered              | X            | O                      |
-|Insert/Delete entry  | 보통 $$O(1)$$| $$O(\log(n))$$         |
-|Get value from key (m[k])| 보통 $$O(1)$$ | $$O(\log(n))$$    |
+|Insert/Delete entry  | 보통  $O(1)$ |  $O(\log(n))$          |
+|Get value from key (m[k])| 보통  $O(1)$  |  $O(\log(n))$     |
 |메모리 사용| 빈 자리가 많을 수 있음 | 꽉꽉 다 채움           |
 
 ---
