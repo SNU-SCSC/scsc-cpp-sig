@@ -1,5 +1,6 @@
 # C++ 시그 3주차
 SCSC 장필식
+
 ---
 
 # 오늘 하게 될 것
@@ -33,7 +34,7 @@ std::set<int>
 
 고정된 갯수의 값들을 순서대로 저장하는 자료구조.
 
-\<array\> 헤더파일에 들어있음
+`<array>` 헤더파일에 들어있음
 
 ```cpp
 // STL에 있는 어레이 (C++11 이상)
@@ -42,26 +43,31 @@ std::array<int, 5> arr = {1, 2, 3, 4, 5};
 int arr[5];
 ```
 
-사실 std::array도 안을 파고들면 C array로 구현이 되어있지만, std::array는 좀 더 편리한 기능들을 많이 제공한다.
+사실 `std::array`도 안을 파고들면 C array로 구현이 되어있지만, `std::array`는 좀 더 편리한 기능들을 많이 제공한다.
 
 ---
 
 # 꺽쇠꺽쇠는 무엇인가요?
 
-C++의 template라는 기능을 통해 여러 "종류"의 오브젝트를 만들 수 있다.
+C++의 `template`라는 기능을 통해 여러 "종류"의 오브젝트를 만들 수 있다.
 타입 뿐만 아니라 값도 집어넣을 수 있다!
+
+<span style="font-size: 95%;">
 
 ```cpp
 std::array<int, 5> arr1; // 5개의 int가 들어있는 어레이
 std::array<int, 10> arr2; // 10개의 int가 들어있는 어레이
 std::array<std::string, 3> arr3; // 3개의 string이 들어있는 어레이
 ```
+</span>
 
 추후에 템플릿을 선언하는 방법을 배울 것입니다. 
 
 ---
 
 # Array: 사용법
+
+<span style="font-size: 80%;">
 
 ```cpp
 #include <iostream>
@@ -90,6 +96,8 @@ int main() {
 }
 ```
 
+</span>
+
 ---
 
 # initialization
@@ -111,8 +119,8 @@ std::array<int, 3> arr2 = {2, 3, 5};
 
 # foreach loop
 
-- auto는 타입을 알아서 유추해주는 기능을 한다.
-- 어레이의 원소들이 충분히 작을 때는 (int, float, double과 같은 primitive type): value로 받자
+- `auto`는 타입을 알아서 유추해주는 기능을 한다.
+- 어레이의 원소들이 충분히 작을 때는 (`int`, `float`, `double`과 같은 primitive type): value로 받자
 - 어레이의 원소들이 좀 클때는: reference 혹은 const reference로 받자
 
 ```cpp
@@ -150,7 +158,7 @@ for (auto& rows : mat) {
 
 # using declaration
 
-좀 복잡한 타입은 using를 통해 간추릴 수 있다.
+좀 복잡한 타입은 `using`를 통해 간추릴 수 있다.
 
 ```cpp
 using Row = std::array<int, 3>;
@@ -170,7 +178,9 @@ int main() {
 # Vector
 
 여러 개의 값을 순서대로 저장하는 자료구조. 크기를 마음대로 조정할 수 있다.
-\<vector\> 헤더파일에 들어있음
+`<vector>` 헤더파일에 들어있음
+
+<span style = "font-size: 85%">
 
 ```cpp
 #include <iostream>
@@ -193,11 +203,13 @@ int main() {
 }
 ```
 
+</span>
+
 ---
 
 # List
 
-Vector하고 같은 기능을 제공하지만, 내부 구현이 다르다.
+`vector`하고 같은 기능을 제공하지만, 내부 구현이 다르다.
 
 ```cpp
 int main() {
@@ -214,22 +226,26 @@ int main() {
 
 # std::vector vs. std::list
 
-vector/list의 원소 개수가 n이라고 가정했을 때: 
+`vector`/`list`의 원소 개수가 $n$이라고 가정했을 때: 
+
+<span style = "font-size: 95%" >
 
 |                     |std::vector| std::list |
 |    :-:              |    :-:    |    :-:    |
-|Random access (v[i]) |   $O(1)$  |   $O(n)$  |
-|Iteration (for(..))  |   $O(n)$  |   $O(n)$  (하지만 훨씬 느림) |
+|Random access (`v[i]`) |   $O(1)$  |   $O(n)$  |
+|Iteration (`for(..)`)  |   $O(n)$  |   $O(n)$  (하지만 훨씬 느림) |
 |Insert/Delete at end |   $O(1)$  |   $O(1)$  |
 |Insert/Delete at middle |  $O(n)$  |  $O(1)$  |
 |메모리 사용 | 빈 자리가 많을 수 있음 | 꽉꽉 다 채우지만, 포인터에 의한 공간 소모 생김 |
+
+</span>
 
 ---
 
 # Map
 
 각 Key에 대응되는 Value들을 나열해 놓은 자료구조. 
-\<map\> 헤더파이에 들어있다.
+`<map>` 헤더파일에 들어있다.
 
 ```cpp
 std::map<string, int> scores;
@@ -289,23 +305,23 @@ if (scores.count("Dongsu") != 0) {
 
 # std::unordered_map
 
-std::map과 기능은 거의 같지만, 키값을 기준으로 정렬해주지 않는다.
+`std::map`과 기능은 거의 같지만, 키값을 기준으로 정렬해주지 않는다.
 
 만약 키 값 순서대로 프린트를 해야 한다면 우리가 따로 정렬해 주어야 한다.
 
-대신 대부분의 경우 std::map보다 빠르다.
+대신 대부분의 경우 `std::map`보다 빠르다.
 
 ---
 
 # std::map vs std::unordered_map
 
-map/unordered_map의 원소 개수가 n이라고 가정했을 때:
+`map`/`unordered_map`의 원소 개수가 n이라고 가정했을 때:
 
-|                     |   std::unordered_map   |   std::map   |
+|                     |   `std::unordered_map`   |   `std::map`   |
 |:-:                  |:-:           |:-:                     |
 |Ordered              | X            | O                      |
 |Insert/Delete entry  | 보통  $O(1)$ |  $O(\log(n))$          |
-|Get value from key (m[k])| 보통  $O(1)$  |  $O(\log(n))$     |
+|Get value from key (`m[k]`)| 보통  $O(1)$  |  $O(\log(n))$     |
 |메모리 사용| 빈 자리가 많을 수 있음 | 꽉꽉 다 채움           |
 
 ---
@@ -313,7 +329,7 @@ map/unordered_map의 원소 개수가 n이라고 가정했을 때:
 # Set
 
 여러개의 값들을 순서 없이 모아놓은 자료구조. (중복 허용 X)
-\<set\> 헤더파일에 들어있다.
+`<set>` 헤더파일에 들어있다.
 가끔씩 쓰게 될 수도 있으므로 소개.
 
 ```cpp
@@ -325,7 +341,7 @@ if (foundNum != numbers.end()) {
 }
 ```
 
-find 함수 사용법은 iterator를 배운 후에.
+`find` 함수 사용법은 iterator를 배운 후에.
 
 ---
 
@@ -347,7 +363,7 @@ std::unordered_multimap<K, V>
 
 # 컨테이너의 내용물 탐색하기
 
-예: ``std::vector<int>`` 에 있는 항목들의 합을 구하기
+예: `std::vector<int>` 에 있는 항목들의 합을 구하기
 (단, 첫번째 항목과 마지막 항목은 제외)
 
 ```cpp
@@ -365,6 +381,9 @@ for (int i = 1; i < vec.size() - 1; ++i) {
 
 만약에 다른 종류의 컨테이너가 들어온다면?
 
+
+<span style = "font-size: 90%">
+
 ```cpp
 std::list<int> lst = {1, 1, 2, 3, 5, 8, 13, 21, 34}
 int sum = 0;
@@ -372,6 +391,8 @@ for (int i = 1; i < lst.size() - 1; ++i) {
     sum += lst[i]; // error: cannot perform random access on list
 }
 ```
+
+</span>
 
 ---
 
@@ -381,6 +402,8 @@ for (int i = 1; i < lst.size() - 1; ++i) {
 
 모든 STL 컨테이너에 iterator 타입이 달려있다.
 
+<span style = "font-size: 75%">
+
 ```cpp
 std::list<int> lst = {1, 1, 2, 3, 5, 8, 13, 21, 34}
 int sum = 0;
@@ -388,6 +411,8 @@ for (std::list<int>::iterator it = lst.begin() + 1; it != lst.end() - 1; ++it) {
     sum += *it;
 }
 ```
+
+</span>
 
 ----
 
@@ -412,10 +437,10 @@ for (auto it = lst.begin() + 1; it != lst.end() - 1; ++it) {
 ---
 # iterator를 생성하는 방법
 
-- begin(): 컨테이너의 첫 번째 값에 있는 iterator
-- end(): 컨테이너의 마지막 값 **다음에** 있는 iterator
-- cbegin(), cend(): const iterator를 생성함
-- rbegin(), rend(): 거꾸로 가는 iterator를 생성함
+- `begin()`: 컨테이너의 첫 번째 값에 있는 iterator
+- `end()`: 컨테이너의 마지막 값 **다음에** 있는 iterator
+- `cbegin()`, `cend()`: const iterator를 생성함
+- `rbegin()`, `rend()`: 거꾸로 가는 iterator를 생성함
 
 ---
 
@@ -428,10 +453,10 @@ left inclusive, right exclusive!
 
 # iterator에 가할 수 있는 연산들
 
-- it++: iterator를 바로 다음 값으로 이동
-- it--: iterator를 바로 전 값으로 이동
-- it + n: n 만큼 다음으로 이동한 iterator를 반환
-- it2 - it1: 두 iterator의 거리를 계산 (difference_type를 반환)
+- `it++`: iterator를 바로 다음 값으로 이동
+- `it--`: iterator를 바로 전 값으로 이동
+- `it + n`: `n` 만큼 다음으로 이동한 iterator를 반환
+- `it2 - it1`: 두 iterator의 거리를 계산 (`difference_type`를 반환)
 
 ---
 
@@ -475,7 +500,7 @@ auto size = lastIt - firstIt;
 
 # iterator의 사용 예
 
-binary search로 vector에서 특정 숫자를 찾기
+binary search로 `vector`에서 특정 숫자를 찾기
 
 ```cpp
 std::vector<int> vec = {...};
@@ -501,29 +526,34 @@ cout << *mid << endl;
 
 # iterator와 알고리즘
 
-\<algorithm\> 헤더에 매우 유용한 알고리즘 함수들이 있다.
+`<algorithm>` 헤더에 매우 유용한 알고리즘 함수들이 있다.
+
+<span style = "font-size:95%">
 
 ```cpp
 std::vector<int> vec = {1, 4, 2, 3, 6}
 std::vector<int>::iterator it = std::find(vec.begin(), vec.end()
 ```
 
+</span>
+
 ---
 
 # 실습
 
-단어들의 목록이 fruit.txt에 저장되어 있다. 이것을 vector<string>으로 가져온다.
+단어들의 목록이 `fruit.txt`에 저장되어 있다. 이것을 `vector<string>`으로 가져온다.
 ```cpp
 std::vector<string> words = loadWords();
 ```
 
-``loadWords()``는 스켈레톤 코드에 정의되어 있으므로 걱정하지 않아도 된다.
+`loadWords()`는 스켈레톤 코드에 정의되어 있으므로 걱정하지 않아도 된다.
 
 ---
 
 # 실습
 
 1. 다음과 같이 단어들을 길이별로 정렬해서 출력하라.
+
 
 ```text
 Words by length: 
@@ -566,7 +596,7 @@ c: 4.01069%
 
 # 가장 심플한 모델: Markov chain
 
-입력 데이터: "Dongsu is slave of SCSC club."
+입력 데이터: `"Dongsu is slave of SCSC club."`
 
 이 문장을 학습하자.
 
@@ -594,13 +624,15 @@ c: 4.01069%
 
 주어진 확률 분포를 가지고 문장을 생성하자!
 
+```text
 "ave slave cl...."
+```
 
 ---
 
 # Chain length
 
-n개의 글자마다 다음에 오게 되는 글자들을 저장하자.
+$n$개의 글자마다 다음에 오게 되는 글자들을 저장하자.
 
 ```text
 'Don' => 'g'
