@@ -39,7 +39,7 @@ std::set<int>
 // STL에 있는 어레이 (C++11 이상)
 std::array<int, 5> arr = {1, 2, 3, 4, 5};
 // C 어레이
-int[5] arr;
+int arr[5];
 ```
 
 사실 std::array도 안을 파고들면 C array로 구현이 되어있지만, std::array는 좀 더 편리한 기능들을 많이 제공한다.
