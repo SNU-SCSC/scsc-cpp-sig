@@ -115,6 +115,8 @@ Elapsed: 1.591e-06s
 
 ## Input/Output
 
+여기서 shakespeare.txt, 10, 1000는 입력값 (std::cin으로 받음)
+
 ```text
 File name: shakespeare.txt
 
@@ -137,10 +139,11 @@ ake sick men play so nicely with the edge of husbandry in heaven forgive us all!
 Elapsed: 0.00123394s
 ```
 
-## Files
+## Text Files (폴더 내에 들어 있음)
 
-shakespeare.txt
-alice.txt
+- shakespeare.txt
+
+- alice.txt
 
 이 두개는 제공해 드립니다.
 심심하면 다른것도 해보세용!
