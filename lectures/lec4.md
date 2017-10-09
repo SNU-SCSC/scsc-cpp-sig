@@ -1,4 +1,4 @@
-# 4강: <algorithm>, lambda
+# 4강: algorithm header, lambda
 SCSC 장필식
 
 ---
@@ -11,7 +11,7 @@ SCSC 장필식
 
 default initialization: 기본값으로 모두 초기화
 
--> 참고: std::array<int, 3> arr1; 을 하면 0으로 초기화기 되지 않는다.
+-> 참고: std::array<int, 3> arr1; 을 하면 값들이 0으로 초기화가 되지 않는다.
 
 ```cpp
 std::array<int, 3> arr1 = {};
@@ -28,7 +28,7 @@ std::array<int, 3> arr2 = {{2, 3, 5}};
 
 # 고차원 어레이
 
--> 참고: std::array 선언을 할때에는 중괄호를 두번 써주는게 좋다.
+-> 참고: 다중 std::array 선언을 할때에는 중괄호를 두번 써주는게 좋다.<!-- $size: 16:9 -->
 
 ```cpp
 std::array<std::array<int, 3>, 3> mat = {{
@@ -59,16 +59,15 @@ int main() {
 
 # C++: implicit conversion
 
-큰따옴표로 만든 string사실 STL string아니라 C string이다!
+큰따옴표로 만든 string는 사실 STL string아니라 C string이다!
+
 
 ```cpp
 auto name = "Dongsu";
 ```
 
-는 사실
-
 ```cpp
-const char* name = "Dongsu";
+const char* name = "Dongsu"; // name의 실제 타입
 ```
 
 ---
@@ -85,19 +84,33 @@ std::string name = "Dongsu";
 std::string name = std::string("Dongsu");
 ```
 
+로 자동으로 변환된다.
+
 ---
 
-# 이유
+# 오류가 생긴 이유
 
 ``const char* name -> std::string``으로는 자동으로 변환해주는 함수가 있지만,
 
 ``const char* name -> std::string&``으로 변환해주는 함수는 없다!
 
+```cpp
+void greetPerson(std::string& name) {
+    cout << "Hello, " << name << "!" << endl;
+}
+
+// 컴파일 안됨! 왜 그럴까?
+int main() {
+    greetPerson("Dongsu");
+}
+```
+
 ---
 
 # 예시: string 넘겨받기
 
-하지만 또 ``const char* name -> const std::string&``으로는 변환해 줄 수 있다!
+하지만 다음과 같은 경우에는?
+``const char* name -> const std::string&``으로 자동으로 변환이 된다!
 
 ```cpp
 void greetPerson(const std::string& name) {
@@ -116,7 +129,7 @@ int main() {
 
 # 그럼 이젠 본론으로
 
-## <algorithm> 헤더와 Lambda식
+## algorithm 헤더와 Lambda식
 
 참고 자료: 
 - C++ Primer: Chap. 10
@@ -129,6 +142,8 @@ int main() {
 주어진 컨테이너에서 특정 원소를 찾고 싶을 때
 첫번째로 찾은 놈에 대한 iterator를 반환한다.
 
+<span style="font-size: 80%;">
+
 ```cpp
 #include <iostream>
 #include <algorithm>
@@ -139,7 +154,6 @@ int main()
 {
     int n1 = 3;
     int n2 = 5;
- 
     std::vector<int> v{0, 1, 2, 3, 4};
  
     auto result1 = std::find(v.begin(), v.end(), n1);
@@ -149,7 +163,6 @@ int main()
     if (result1 != v.end()) {
         std::cout << "3 found inside vector!" << std::endl;
     }
-
     // result2는 v의 끝을 가리키고 있다
     if (result2 == v.end()) {
         std::cout << "Cannot find 5 inside vector!" << std::endl;
@@ -170,6 +183,8 @@ int main()
 ---
 
 # Example: find_if
+
+<span style="font-size: 80%;">
 
 ```cpp
 #include <iostream>
@@ -258,12 +273,18 @@ std::cout << lambda(2, 3) << std::endl;
 대괄호 안에 어떤 변수들을 참조할 것인지를 적을 수 있다.
 
 Capture by value: 
+
+<span style="font-size: 95%;">
+
 ```cpp
 int n = 10;
 auto adder = [n](int a) { return a + n; } 
 ```
 
 Capture by reference:
+
+<span style="font-size: 85%;">
+
 ```cpp
 std::string greeting = "Hello, ";
 auto greeter = [&greeting](std::string s) { return greeting + s; }
@@ -276,12 +297,18 @@ auto greeter = [&greeting](std::string s) { return greeting + s; }
 혹은 자동으로 참조하게 할 수도 있다.
 
 Capture everything by value:
+
+<span style="font-size: 95%;">
+
 ```cpp
 int n = 10;
 auto adder = [=](int a) { return a + n; } 
 ```
 
 Capture everything by reference:
+
+<span style="font-size: 95%;">
+
 ```cpp
 std::string greeting = "Hello, ";
 auto greeter = [&](std::string s) { return greeting + s; }
@@ -291,15 +318,16 @@ auto greeter = [&](std::string s) { return greeting + s; }
 
 # Lambda expression: std::function
 
-Lambda 함수는 구체적인 타입이 정의되어 있진 않지만... std::function이라는 타입으로 가지고 있을 수 있다. (다만, capture를 하지 않는다는 가정에)
+Lambda 함수 자체는 구체적인 타입을 가지고 있진 않지만... std::function이라는 타입으로 가지고 있을 수 있다.
 
 ```cpp
-std::function<void(int, int)> adder = [](int a, int b) { return a + b; }
+std::function<void(int, int)> adder =
+	[](int a, int b) { return a + b; }
 ```
 
 ---
 
-# 다시 <algorithm> 헤더로...
+# 다시 algorithm 헤더로...
 
 ---
 
@@ -328,6 +356,8 @@ for (int i : vec) {
 
 함수형 프로그래밍
 
+<span style="font-size: 80%;">
+
 ```cpp
 std::vector<int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
@@ -338,7 +368,7 @@ std::copy_if(vec.begin(), vec.end(), std::back_inserter(newVec),
 
 ---
 
-# 절차지향적 프로그래밍 vs 함수형 프로그래밍
+# 여담: 절차지향적 vs 함수지향적 프로그래밍
 
 절차형 프로그래밍:
 - 컴퓨터가 해야 하는 행동을 하나씩 순차적으로 명시
@@ -356,6 +386,8 @@ std::copy_if(vec.begin(), vec.end(), std::back_inserter(newVec),
 
 주어진 string에서 스페이스를 모두 없애고 싶을 때
 
+<span style="font-size: 90%;">
+
 ```cpp
 #include <algorithm>
 #include <string>
@@ -371,7 +403,7 @@ int main()
 }
 ```
 
-```
+```text
 Textwithsomespaces
 ```
 
@@ -412,8 +444,6 @@ sum $ map (\x -> x*x) [1..10]
 
 심지어 Java에서도 이렇게 편리한데...
 
-1^2 + ... + 10^2는?
-
 ```java
 int total = Stream.iterate(0, i -> i + 1)
                   .map(i -> i * i)
@@ -427,6 +457,8 @@ int total = Stream.iterate(0, i -> i + 1)
 
 Eric Niebler가 설계한 새로운 STL 알고리즘 라이브러리의 초안.
 
+<span style="font-siz다e: 80%;">
+
 ```cpp
 int total = accumulate(view::iota(1) |
                        view::transform([](int x){ return x*x; }) |
@@ -436,3 +468,5 @@ int total = accumulate(view::iota(1) |
 ---
 
 # 진짜 끝
+
+어캠갑시다
