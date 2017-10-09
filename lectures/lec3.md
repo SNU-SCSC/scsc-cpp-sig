@@ -102,15 +102,8 @@ int main() {
 
 # initialization
 
-어레이를 다음과 같이 생성시킬 수 있다.
+어레이를 initializer list 를 통해 생성
 
-default initialization: 기본값으로 모두 초기화
-
-```cpp
-std::array<int, 3> arr1; // {0, 0, 0}
-```
-
-initializer list 사용
 ```cpp
 std::array<int, 3> arr2 = {2, 3, 5}; 
 ```
