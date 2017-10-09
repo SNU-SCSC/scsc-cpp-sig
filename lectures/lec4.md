@@ -457,7 +457,7 @@ int total = Stream.iterate(0, i -> i + 1)
 
 Eric Niebler가 설계한 새로운 STL 알고리즘 라이브러리의 초안.
 
-<span style="font-siz다e: 80%;">
+<span style="font-size: 80%;">
 
 ```cpp
 int total = accumulate(view::iota(1) |
