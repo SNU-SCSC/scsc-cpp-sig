@@ -1,0 +1,13 @@
+struct StudentInfo {
+    std::string name;
+    double midterm, final;
+    std::vector<double> homework;
+}
+
+int main() {
+    StudentInfo youngjae;
+    youngjae.name = "youngjae";
+    youngjae.midterm = 100.00;
+    youngjae.final = 100.00;
+    youngjae.homework = {100.00, 100.00, 100.00};
+}
