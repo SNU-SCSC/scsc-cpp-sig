@@ -546,11 +546,6 @@ public:
     StudentInfo(std::string name, double midterm, double final) :
         name(name), midterm(midterm), final(final) { }
 
-private: 
-    std::string name;
-    double midterm, final;
-    std::vector<double> homework;
-
     void addHomework(double score) {
         homework.add(score);
     }
@@ -561,6 +556,11 @@ private:
         return std::accumulate(homework.begin(), homework.end(), 0) 
             / homework.size();
     }
+
+private: 
+    std::string name;
+    double midterm, final;
+    std::vector<double> homework;
 };
 ```
 
