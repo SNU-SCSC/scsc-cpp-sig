@@ -183,7 +183,7 @@ struct StudentInfo {
     std::string name;
     double midterm, final;
     std::vector<double> homework;
-}
+};
 ```
 
 참고로 primitive type (int, double, ..)와 STL의 거의 모든 타입들 (string, vector, ...)에는 constructor가 달려있다.
@@ -209,7 +209,7 @@ struct StudentInfo {
     std::string name;
     double midterm, final;
     std::vector<double> homework;
-}
+};
 ```
 
 ---
@@ -227,7 +227,7 @@ struct StudentInfo {
     std::string name;
     double midterm, final;
     std::vector<double> homework;
-}
+};
 ```
 
 ---

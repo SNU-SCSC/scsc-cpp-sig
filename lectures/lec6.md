@@ -1,49 +1,56 @@
-C++ 시그 6강: 입출력 / Operator Overloading / 기타 ㅁㄴㅇㄹ
-
+C++ 제 7강: Heap & Memory Management
 SCSC 장필식
 ---
 
-# 클래스에 입출력 함수를 만들어보자
+# Heap
+
+동적인 크기의 데이터를 저장할 때 사용하는 메모리 공간
+
+Stack하고는 별도로 운영되는, 신비의 메모리 공간
+
+---
+
+# new / delete
 
 ```cpp
-struct StudentInfo {
-    std::string name;
-    double midterm, final;
-    std::vector<double> homework;
+// allocate a's value in heap (and set it to 1)
+int* a = new int(1);
 
-    std::istream& read(std::istream& os);
-    std::ostream& write(std::ostream& os);
-    double grade() const;
-};
+cout << "a is: " << *a << endl; // 1
+*a = 2;
+cout << "a is: " << *a << endl; // 2
+
+// deallocate a's value from heap
+delete a;
+
 ```
----
-
-# stream?
-
-어떠한 데이터의 인풋이나 아웃풋을 받고 싶을 때 (콘솔창 입출력, 파일 입출력, 등등)을 받을 때, C++에서는 **stream** 이라는 개념을 자주 쓴다.
-
-데이터의 흐름을 stream으로 표현함으로써 우리는 데이터 인풋이 콘솔창에서 오는건지 파일에서 오는건지 신경을 쓰지 않아도 된다!
 
 ---
 
-# stream의 종류
+# Allocation in class
 
-![](std-io-complete-inheritance.svg)
+```cpp
 
----
-
-# 대표적인 예: std::cin, std::cout
-
-std::cin은 std::istream 타입을 가지고 있으며,
-std::cout은 std::ostream 타입을 가지고 있다.
-
-이 두 오브젝트는 <iostream> 헤더에서 글로벌 변수로 제공하고 있다.
+```
 
 ---
 
-# read/write 함수를 사용하여 입력/출력하기
-
-std::cin
+# Constructor / Destructor
 
 ---
+
+# Ex: Linked List
+
+---
+
+# Doubly Linked List
+
+기존의 코드를 확장하여 앞뒤로 포인터가 존재하는 Doubly Linked List를 만들어라.
+그리고 나서 다음 함수들을 구현해라.
+- 뒤에 숫자를 집어넣는 ``void insertAtTail(int value)``
+- 거꾸로 리스트를 프린트하는 ``void traverseBackwards()``
+
+---
+
+# 끄으읕
 
