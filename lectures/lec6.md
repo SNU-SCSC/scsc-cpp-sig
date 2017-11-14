@@ -1,5 +1,5 @@
-C++ 제 7강: Heap & Memory Management
-SCSC 장필식
+# C++ 제 6강: Heap & Memory Management
+## SCSC 장필식
 ---
 
 # Heap
@@ -14,14 +14,13 @@ Stack하고는 별도로 운영되는, 신비의 메모리 공간
 
 Stack
 - 매우 빠름
-- 메모리 주소에서 위에서부터 아랫 방향으로 증가
 - 할당한 메모리의 크기를 Compile-time에 미리 결정해야함
 
 Heap
 - Stack에 비해서는 느림
-- 메모리 주소에서 아래에서 윗 방향으로 증가
+- 메모리 상에서 Stack과는 반대쪽에 위치함
 - 프로그램의 실행 도중 원하는 만큼 메모리를 할당할 수 있음
-- 이렇게 할당한 메모리에 대한 관리를 Memory Allocator가 자동으로 해줌
+- 메모리가 정확히 어디에 할당될지는 Memory Allocator가 자동으로 골라줌
 
 ---
 
@@ -92,7 +91,9 @@ int* a = new int(1);
 
 안그리면 우리의 메모리는 더 이상 찾을 수 없는 상태가 된다.
 
-이 메모리는 프로그램의 실행동안 계속 어딘가 공간을 차지하게 된다.
+이 메모리는 프로그램의 실행동안 계속 어딘가 공간을 잡아먹게 된다.
+
+이런 것을 **memory leak**라고 한다.
 
 ---
 
@@ -196,7 +197,8 @@ void doSomething()
     // do something with person...
 }
 
-// dna data is automatically deleted after person is out of scope
+// dna data is automatically deleted after
+// person is out of scope
 ```
 
 ---
@@ -259,7 +261,7 @@ struct StudentInfo {
 
 ```
 
-``name``과 ``scores`` 필드는 Synthesized Destructor 때문에 자원이 해체되는 것이 아니라 
+(참고로 ``name``과 ``scores`` 필드는 이 Synthesized Destructor 때문에 desctructor 것이 아니라, 오브젝트 자체가 scope에 나감에 따라 destructor가 불러지게 되는 것이다.)
 
 ---
 
@@ -284,7 +286,7 @@ struct StudentInfo {
 
 # 근데 이거 좀 많이 귀찮다
 
-메모리가 언제 할당되는지를 추적해서 일일이 free해줘야 한다.
+메모리가 언제 할당되는지를 추적해서 일일이 delete해줘야 한다.
 
 잘못하다간 어썸한 버그들을 만날 수 있다.
 
@@ -298,7 +300,7 @@ struct StudentInfo {
 
 여러 오브젝트가 하나의 리소스를 들고 있다면? 누가 delete를 해야 하는 거지?
 
-여러 오브젝트가 여러가의 리소스를 들고 있다면? 총체적 난국
+여러 오브젝트가 여러가의 리소스를 들고 있다면? 그야말로 총체적 난국
 
 ---
 
