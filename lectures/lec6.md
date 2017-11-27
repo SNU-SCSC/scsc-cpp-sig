@@ -269,17 +269,6 @@ struct StudentInfo {
 
 ---
 
-# Doubly Linked List
-
-다음주까지 과제. 
-
-기존의 코드를 확장하여 앞뒤로 포인터가 존재하는 Doubly Linked List를 만들어라.
-그리고 나서 다음 함수들을 구현해라.
-- 뒤에 숫자를 집어넣는 ``void insertAtTail(int value)``
-- 거꾸로 리스트를 프린트하는 ``void traverseBackwards()``
-
----
-
 # 다음 시간 예고편
 
 ---
