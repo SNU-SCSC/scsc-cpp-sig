@@ -34,7 +34,7 @@ C++의 주요 기능들을 응용에서 게임 혹은 시뮬레이션을 만드�
 
 개인 역량에 맞춰서 **아무런** 게임이나 만들어도 괜찮습니다. 최대한 많은 사람이 이수하도록 하고 싶습니다...
 
-다른 게임 아이디어들https://www.sfml-dev.org/tutorials/2.4/graphics-vertex-array.php
+다른 게임 아이디어들:
 
 - Snake
 - 벽돌깨기
@@ -68,10 +68,13 @@ Example: https://www.sfml-dev.org/documentation/2.4.2/
 
 게임 속 리소스들 (텍스쳐, 사운드, 폰드 등)을 관리하는 Resource Manager가 있으면 편하다. (다음은 대충 짠 예시 코드)
 
+<span style="font-size: 70%;">
+
 ```cpp
 class ResourceManager {
 public:
-    shared_ptr<sf::Texture> loadTexture(const string& filename, const string& name) {
+    shared_ptr<sf::Texture> loadTexture(const string& filename,
+    					const string& name) {
         auto texture = make_shared<sf::Texture>();
         texture->loadFromFile(filename);
         textures[name] = texture;
